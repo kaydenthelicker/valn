@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine's Day Card</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .heart-emoji {
+            position: fixed;
+            font-size: 2rem;
+            animation: float 3s ease-in infinite;
+            z-index: 100;
+        }
+        @keyframes float {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(-100vh); opacity: 0; }
+        }
+        .hidden {
+            display: none;
+        }
+        .message-revealed {
+            background: linear-gradient(-45deg, #ff69b4, #ff1493, #ff69b4);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+        }
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="heart" id="heart"></div>
+        <h1>Happy Valentine's Day!</h1>
+        <p id="message" class="hidden">
+            My love Ana today is our day just like every day I spend thinking about you ❤️<br><br>
+            You are my light my peace my everything ☀️<br><br>
+            No distance can change what I feel for you because my heart is always with you 💖<br><br>
+            Happy Valentine's Day my love forever and always 🥰💕
+        </p>
+        <button id="revealButton">Reveal Message 💝</button>
+    </div>
+    <script>
+        function createHeartEmoji() {
+            const heart = document.createElement('div');
+            heart.textContent = '❤️';
+            heart.className = 'heart-emoji';
+            heart.style.left = Math.random() * window.innerWidth + 'px';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 3000);
+        }
+
+        document.getElementById('revealButton').addEventListener('click', function() {
+            const message = document.getElementById('message');
+            message.classList.toggle('hidden');
+            document.body.classList.toggle('message-revealed');
+            
+            if (!message.classList.contains('hidden')) {
+                // Create 20 floating hearts
+                for (let i = 0; i < 20; i++) {
+                    setTimeout(() => createHeartEmoji(), i * 100);
+                }
+                this.textContent = 'Hide Message 💝';
+            } else {
+                this.textContent = 'Reveal Message 💝';
+                document.body.classList.remove('message-revealed');
+            }
+        });
+    </script>
+</body>
+</html>
